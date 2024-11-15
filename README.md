@@ -1,4 +1,5 @@
 # Análise de Ativos com Streamlit e yFinance
+# https://gilneialvesfinancas.streamlit.app/
 
 Este projeto realiza a análise de ativos financeiros utilizando a biblioteca `yfinance` para buscar dados históricos de ações e o `Streamlit` para criar uma interface interativa que permite visualizar gráficos e informações de ativos financeiros. O projeto inclui funcionalidades como a exibição de cotações, cálculo de dividendos e yields, e gráficos comparativos.
 
