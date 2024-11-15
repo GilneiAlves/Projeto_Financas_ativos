@@ -1,0 +1,34 @@
+# Ignorar os arquivos
+app.py
+teste.py
+
+# Ignorar pastas de ambiente virtual .venv
+venv/
+.venv/
+
+# Ignorar arquivos de dependências
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Ignorar arquivos de configuração do ambiente
+.ipynb_checkpoints/
+
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos temporários do editor de código
+.vscode/
+.idea/
+
+# Ignorar o diretório de pacotes instalados
+dist/
+build/
+
+# Ignorar arquivos de cache do Python
+*.egg-info/
+
+# Ignorar arquivos de backup
+*~
