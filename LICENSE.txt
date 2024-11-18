@@ -1,9 +1,0 @@
-MIT License
-
-Copyright (c) 2024 GILNEI ALVES DE FREITAS
-
-Por meio deste, é concedida permissão, de forma gratuita, para qualquer pessoa que obtenha uma cópia deste software e dos arquivos de documentação associados (o "Software"), para lidar no Software sem restrição, incluindo, mas não se limitando a, direitos de usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender cópias do Software, e para permitir que pessoas a quem o Software é fornecido o façam, desde que as seguintes condições sejam atendidas:
-
-1. O aviso de direitos autorais acima e este aviso de permissão sejam incluídos em todas as cópias ou partes substanciais do Software.
-
-O Software é fornecido "no estado em que se encontra", sem qualquer garantia expressa ou implícita, incluindo, mas não se limitando a, garantias de comercialização, adequação a um propósito específico e não violação. Em nenhum caso o(s) autores ou titular(es) dos direitos autorais poderão ser responsabilizados por qualquer reclamação, dano ou outra responsabilidade, seja em uma ação de contrato, ato ilícito ou outro, decorrente de, ou em conexão com, o Software ou o uso ou outros negócios no Software.
