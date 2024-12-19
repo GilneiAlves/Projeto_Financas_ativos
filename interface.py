@@ -2,6 +2,7 @@ import streamlit as st
 import yfinance as yf
 from datetime import datetime
 import pytz
+import locale
 
 from grafico import gerar_grafico
 from tabela import calcular_dividendos_yields
@@ -36,12 +37,26 @@ num_dias = st.sidebar.slider("Número de dias para exibir no gráfico", 1, 520, 
 st.sidebar.header("Meses para exibir no gráfico")
 meses = st.sidebar.slider("Dividendos dos últimos meses", 2, 12, 6)
 
+# Entrada dos valores pelo usuário
+st.sidebar.header("Parâmetros de Cálculo de Variação")
+saldo_bruto = st.sidebar.number_input("Saldo Bruto", min_value=0.0, value=10000.0, step=100.0,format="%.2f")
+valor_aplicado = st.sidebar.number_input("Valor Aplicado", min_value=0.0, value=5000.0, step=100.0,format="%.2f")
+total_proventos = st.sidebar.number_input("Total de Proventos", min_value=0.0, value=500.0, step=10.0,format="%.2f")
+
+# Cálculo da variação
+variacao = (saldo_bruto - (valor_aplicado - total_proventos)) / saldo_bruto * 100
+
+# Exibição do card de variação
+with st.container():
+    #st.subheader("Variação de Investimentos")
+    st.metric(label="Variação (%)", value=f"{variacao:.2f}%")
+
 # Exibe o gráfico para o ativo selecionado
 grafico = gerar_grafico(ativo_selecionado, num_dias, precos_medios)
 if grafico:
     st.plotly_chart(grafico, use_container_width=True)
 
-grafico_dividendos = gerar_grafico_dividendos(ativo_selecionado,meses)
+grafico_dividendos = gerar_grafico_dividendos(ativo_selecionado, meses)
 if grafico_dividendos:
     st.plotly_chart(grafico_dividendos, use_container_width=True)
 
@@ -50,6 +65,4 @@ st.write("Tabela de Dados dos Ativos", unsafe_allow_html=True)
 df_ativos = calcular_dividendos_yields(ativos, precos_medios)
 
 # Exibe a tabela com o ajuste de largura e altura do container
-st.dataframe(df_ativos, use_container_width=True, height=458,hide_index=True)
-# Estilo personalizado para ajustar o tamanho da fonte do cabeçalho e das linhas da tabela
-
+st.dataframe(df_ativos, use_container_width=True, height=458, hide_index=True)
