@@ -35,21 +35,28 @@ ativo_selecionado = st.sidebar.selectbox("Escolha o ativo", ativos)
 num_dias = st.sidebar.slider("Número de dias para exibir no gráfico", 1, 520, 15)
 
 st.sidebar.header("Meses para exibir no gráfico")
-meses = st.sidebar.slider("Dividendos dos últimos meses", 2, 12, 6)
+meses = st.sidebar.slider("Dividendos dos últimos meses", 2, 24, 12)
 
 # Entrada dos valores pelo usuário
 st.sidebar.header("Parâmetros de Cálculo de Variação")
-saldo_bruto = st.sidebar.number_input("Saldo Bruto", min_value=0.0, value=10000.0, step=100.0,format="%.2f")
-valor_aplicado = st.sidebar.number_input("Valor Aplicado", min_value=0.0, value=5000.0, step=100.0,format="%.2f")
-total_proventos = st.sidebar.number_input("Total de Proventos", min_value=0.0, value=500.0, step=10.0,format="%.2f")
+saldo_bruto = st.sidebar.number_input("Saldo Bruto", min_value=0.0, value=20000.0, step=100.0,format="%.2f")
+valor_aplicado = st.sidebar.number_input("Valor Aplicado", min_value=0.0, value=30000.0, step=100.0,format="%.2f")
+total_proventos = st.sidebar.number_input("Total de Proventos", min_value=0.0, value=700.0, step=10.0,format="%.2f")
 
-# Cálculo da variação
+# Cálculo da variação Real
 variacao = (saldo_bruto - (valor_aplicado - total_proventos)) / saldo_bruto * 100
 
-# Exibição do card de variação
-with st.container():
-    #st.subheader("Variação de Investimentos")
+# Cálculo da variação de cotas
+variacao_cotas = ((saldo_bruto - valor_aplicado) / valor_aplicado) * 100
+
+# Exibição dos cards lado a lado
+col1, col2 = st.columns(2)  # Criação de duas colunas
+
+with col1:
     st.metric(label="Variação (%)", value=f"{variacao:.2f}%")
+
+with col2:
+    st.metric(label="Variação Cotas (%)", value=f"{variacao_cotas:.2f}%")
 
 # Exibe o gráfico para o ativo selecionado
 grafico = gerar_grafico(ativo_selecionado, num_dias, precos_medios)
