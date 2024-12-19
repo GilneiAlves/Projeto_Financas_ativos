@@ -35,7 +35,7 @@ ativo_selecionado = st.sidebar.selectbox("Escolha o ativo", ativos)
 num_dias = st.sidebar.slider("Número de dias para exibir no gráfico", 1, 520, 15)
 
 st.sidebar.header("Meses para exibir no gráfico")
-meses = st.sidebar.slider("Dividendos dos últimos meses", 2, 24, 12)
+meses = st.sidebar.slider("Dividendos dos últimos meses", 2, 12, 12)
 
 # Entrada dos valores pelo usuário
 st.sidebar.header("Parâmetros de Cálculo de Variação")
