@@ -72,8 +72,8 @@ O preço atual do ativo será comparado com o preço médio ao longo do tempo, e
 ### Estrutura do Projeto
 A estrutura de diretórios do projeto é a seguinte:
 ```
-├── app.py                  # Arquivo principal do Streamlit
+├── interface.py            # Arquivo principal do Streamlit
+├── grafico.py              # Arquivo gera os gráficos
 ├── requirements.txt        # Arquivo com as dependências do projeto
 ├── README.md               # Este arquivo
-└── assets/                 # Diretório para arquivos estáticos (opcional)
 ```

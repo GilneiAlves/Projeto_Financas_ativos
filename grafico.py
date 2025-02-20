@@ -2,6 +2,7 @@ import yfinance as yf
 import plotly.graph_objects as go
 import pandas as pd
 
+# Gera gráfico cotação
 def gerar_grafico(ticker, num_dias, precos_medios):
     data = yf.download(ticker, period="max")
     data = data.tail(num_dias + 1)
@@ -83,7 +84,7 @@ def gerar_grafico(ticker, num_dias, precos_medios):
 
     return fig
 
-
+# Gera gráfico de dividendos
 def gerar_grafico_dividendos(ticker, meses):
     # Garante que o valor de meses esteja entre 2 e 12
     if meses < 2 or meses > 12:
