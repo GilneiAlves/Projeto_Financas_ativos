@@ -4,6 +4,6 @@ pytz==2023.3
 pytz-deprecation-shim==0.1.0.post0
 Streamlit==1.40.1
 # yfinance==0.2.43 Versão descontinuada
-finance==0.2.54
+yfinance==0.2.54
 plotly==5.17.0
 pandas==2.2.3
