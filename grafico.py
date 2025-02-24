@@ -5,6 +5,7 @@ import pandas as pd
 # Gera gráfico cotação
 def gerar_grafico(ticker, num_dias, precos_medios):
     data = yf.download(ticker, period="max")
+    data = data.xs(ticker, level="Ticker", axis=1) # Linha adicionada por conta da versão yfinance==0.2.54
     data = data.tail(num_dias + 1)
     data['Variação %'] = data['Close'].pct_change() * 100
 
