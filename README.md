@@ -74,6 +74,8 @@ A estrutura de diretórios do projeto é a seguinte:
 ```
 ├── interface.py            # Arquivo principal do Streamlit
 ├── grafico.py              # Arquivo gera os gráficos
+├── tabela.py               # Arquivo gera tabela de resumo
 ├── requirements.txt        # Arquivo com as dependências do projeto
+├── .gitignore              # Arquivo para ignorar dados e arquivos que não irão para o git remoto
 ├── README.md               # Este arquivo
 ```
