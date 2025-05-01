@@ -6,10 +6,8 @@ from yfinance.exceptions import YFRateLimitError
 # Gera gráfico cotação
 def gerar_grafico(ticker, num_dias, precos_medios):
     try:
-        # Ajusta o período de download para o mínimo necessário
-        dias_extra = 5
-        total_dias = num_dias + dias_extra
-        data = yf.download(ticker, period=f"{total_dias}d", progress=False)
+        # Ajusta o período de download para 6 meses
+        data = yf.download(ticker, period="6mo", progress=False)
 
         # Trata caso venha multiindex
         if isinstance(data.columns, pd.MultiIndex):
@@ -94,7 +92,7 @@ def gerar_grafico_dividendos(ticker, meses):
         if meses < 2 or meses > 12:
             raise ValueError("O número de meses deve estar entre 2 e 12.")
 
-        # Usa cache se estiver usando Streamlit (descomente se quiser)
+        # Usa cache se estiver usando Streamlit
         # @st.cache_data(ttl=3600)
         data = yf.Ticker(ticker).dividends
 
