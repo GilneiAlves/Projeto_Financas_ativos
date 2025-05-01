@@ -7,7 +7,7 @@ from yfinance.exceptions import YFRateLimitError
 def gerar_grafico(ticker, num_dias, precos_medios):
     try:
         # Ajusta o período de download para 6 meses
-        data = yf.download(ticker, period="6mo", progress=False)
+        data = yf.download(ticker, period="1mo", progress=False)
 
         # Trata caso venha multiindex
         if isinstance(data.columns, pd.MultiIndex):
