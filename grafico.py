@@ -120,69 +120,49 @@ def gerar_grafico(ticker, num_dias, precos_medios):
 
     return fig
 
+# Gera gráfico de dividendos
 def gerar_grafico_dividendos(ticker, meses):
-    """Gera gráfico de dividendos pagos nos últimos 'meses' meses para o ticker informado.
-    Utiliza cache para otimizar a performance."""
-    agora = pd.Timestamp.now()
-    cache_key = f"{ticker}_{meses}"
+    # Garante que o valor de meses esteja entre 2 e 12
+    if meses < 2 or meses > 12:
+        raise ValueError("O número de meses deve estar entre 2 e 12.")
 
-    # Verifica se dados de dividendos estão em cache
-    if cache_key in CACHE_DIVIDENDOS and agora - CACHE_DIVIDENDOS[cache_key]['timestamp'] < CACHE_VALIDADE:
-        data = CACHE_DIVIDENDOS[cache_key]['data'].copy()
-        print(f"Usando dados de dividendos em cache para {ticker} ({meses} meses)")
-        if data.empty:
-            st.warning(f"Não há dados de dividendos em cache para {ticker} nos últimos {meses} meses.")
-            return None
-    else:
-        print(f"Baixando dados de dividendos para {ticker} ({meses} meses)")
-        try:
-            ativo = yf.Ticker(ticker)
-            data_yf = ativo.dividends
-            if not data_yf.empty:
-                data_yf.index = data_yf.index.tz_localize(None)  # Remove timezone para evitar conflitos
-                data = data_yf[data_yf.index >= (pd.Timestamp.now() - pd.DateOffset(months=meses))].copy()
-                data = data.to_frame(name='Dividendos')
-                CACHE_DIVIDENDOS[cache_key] = {'data': data.copy(), 'timestamp': agora}
-                if data.empty:
-                    st.warning(f"Não foram encontrados dados de dividendos para {ticker} nos últimos {meses} meses.")
-                    return None
-            else:
-                st.warning(f"Não foram encontrados dados de dividendos para o ticker {ticker}.")
-                return None
-        except yf.exceptions.YFError as e:
-            st.error(f"Erro ao buscar dados de dividendos para {ticker} (Yahoo Finance Error): {e}")
-            return None
-        except Exception as e:
-            st.error(f"Erro inesperado ao buscar dados de dividendos para {ticker}: {e}")
-            return None
-
-    if data is None or data.empty:
+    # Baixa os dados de dividendos e converte para ignorar o fuso horário
+    data = yf.Ticker(ticker).dividends
+    if data.empty:
         return None
 
-    try:
-        # Arredondamento dos valores e cálculo da variação percentual
-        data['Dividendos'] = data['Dividendos'].round(2)
-        data['Variação %'] = data['Dividendos'].pct_change().round(2) * 100
-    except Exception as e:
-        st.error(f"Erro ao processar dados de dividendos para {ticker}: {e}")
-        return None
+    # Remove o fuso horário do índice
+    data.index = data.index.tz_localize(None)
 
-    # Criação do gráfico
+    # Filtra para os últimos 'meses' meses
+    data = data[data.index >= (pd.Timestamp.now() - pd.DateOffset(months=meses))]
+
+    # Converte para DataFrame e arredonda os valores
+    data = data.to_frame(name='Dividendos')
+    data['Dividendos'] = data['Dividendos'].round(2)
+    data['Variação %'] = data['Dividendos'].pct_change().round(2) * 100
+
+    # Cria o gráfico
     fig = go.Figure()
     fig.add_trace(go.Scatter(
-        x=data.index, y=data['Dividendos'], mode='lines+markers+text',
-        name='Dividendos', line=dict(color='blue'),
+        x=data.index,
+        y=data['Dividendos'],
+        mode='lines+markers+text',
+        name='Dividendos',
+        line=dict(color='blue'),
         text=[
             f"R$ {dividendo:.2f}".replace('.', ',') +
-            (f"<br>{'▲' if variacao > 0 else '▼'} {variacao:.2f}%".replace('.', ',')
-             if not pd.isna(variacao) else "")
+            (
+                f"<br>{'▲' if variacao > 0 else '▼'} {variacao:.2f}%".replace('.', ',')
+                if not pd.isna(variacao) else ""
+            )
             for dividendo, variacao in zip(data['Dividendos'], data['Variação %'])
         ],
         textposition="top center",
         textfont=dict(size=13.5)
     ))
 
-    # Layout com estética escura e configurações de eixos
+    # Configurações do layout do gráfico
     fig.update_layout(
         title=f"Histórico de Dividendos do {ticker} - Últimos {meses} Meses",
         title_font=dict(size=20),
