@@ -1,6 +1,6 @@
 # Ignorar os arquivos
 app.py
-teste.py
+teste.ipynb
 
 # Ignorar pastas de ambiente virtual .venv
 venv/

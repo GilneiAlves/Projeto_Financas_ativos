@@ -1,12 +1,13 @@
 import streamlit as st
-import yfinance as yf
+import pandas as pd
 from datetime import datetime
 import pytz
 import locale
 
+from ativos_precos import ativos_config, precos_medios_config
 from grafico import gerar_grafico
-from tabela import calcular_dividendos_yields
-from grafico import gerar_grafico_dividendos
+#from tabela import calcular_dividendos_yields
+#from grafico import gerar_grafico_dividendos
 
 # Configurações de página do Streamlit (wide mode)
 st.set_page_config(
@@ -16,15 +17,13 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Lista de ativos e preços médios
-ativos = ["HGRU11.SA", "HSLG11.SA", "KNCR11.SA", "MXRF11.SA", "PORD11.SA", "RZTR11.SA", 
-          "VGHF11.SA", "GGRC11.SA", "XPLG11.SA", "XPML11.SA", "GARE11.SA", "VISC11.SA"]
+# Carrega os dados
+df_cotacoes = pd.read_excel('dados_organizados.xlsx')
 
-precos_medios = {
-    "KNCR11.SA": 104.4, "HSLG11.SA": 84.99, "MXRF11.SA": 9.84, "PORD11.SA": 8.51,
-    "RZTR11.SA": 90.21, "VGHF11.SA": 7.67, "GGRC11.SA": 10.17, "XPLG11.SA": 97.17,
-    "XPML11.SA": 101.36, "VISC11.SA": 96.63, "GARE11.SA": 8.55, "HGRU11.SA": 113.68
-}
+# Lista de ativos e preços médios
+ativos = ativos_config
+
+precos_medios = precos_medios_config
 
 # Configurações da interface
 st.title("Análise de Ativos")
@@ -59,10 +58,10 @@ with col2:
     st.metric(label="Variação Cotas (%)", value=f"{variacao_cotas:.2f}%")
 
 # Exibe o gráfico para o ativo selecionado
-grafico = gerar_grafico(ativo_selecionado, num_dias, precos_medios)
+grafico = gerar_grafico(ativo_selecionado, num_dias, precos_medios, df_cotacoes)
 if grafico:
     st.plotly_chart(grafico, use_container_width=True)
-
+'''
 grafico_dividendos = gerar_grafico_dividendos(ativo_selecionado, meses)
 if grafico_dividendos:
     st.plotly_chart(grafico_dividendos, use_container_width=True)
@@ -73,3 +72,4 @@ df_ativos = calcular_dividendos_yields(ativos, precos_medios)
 
 # Exibe a tabela com o ajuste de largura e altura do container
 st.dataframe(df_ativos, use_container_width=True, height=458, hide_index=True)
+'''
