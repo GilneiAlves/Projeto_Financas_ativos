@@ -105,11 +105,19 @@ def gerar_grafico(ticker, num_dias, precos_medios, df_cotacoes):
     return fig
 
 '''
+
 def gerar_grafico_dividendos(ticker, meses):
     # Garante que o valor de meses esteja entre 2 e 12
     if meses < 2 or meses > 12:
         raise ValueError("O número de meses deve estar entre 2 e 12.")
+    # Garante que o valor de meses esteja entre 2 e 12
+    if meses < 2 or meses > 12:
+        raise ValueError("O número de meses deve estar entre 2 e 12.")
 
+    # Baixa os dados de dividendos e converte para ignorar o fuso horário
+    data = yf.Ticker(ticker).dividends
+    if data.empty:
+        return None
     # Baixa os dados de dividendos e converte para ignorar o fuso horário
     data = yf.Ticker(ticker).dividends
     if data.empty:
@@ -120,7 +128,16 @@ def gerar_grafico_dividendos(ticker, meses):
 
     # Filtra para os últimos 'meses' meses, definidos pelo parâmetro
     data = data[data.index >= (pd.Timestamp.now() - pd.DateOffset(months=meses))]
+    # Remove o fuso horário do índice
+    data.index = data.index.tz_localize(None)
 
+    # Filtra para os últimos 'meses' meses, definidos pelo parâmetro
+    data = data[data.index >= (pd.Timestamp.now() - pd.DateOffset(months=meses))]
+
+    # Converte para DataFrame e arredonda os valores
+    data = data.to_frame(name='Dividendos')
+    data['Dividendos'] = data['Dividendos'].round(2)
+    data['Variação %'] = data['Dividendos'].pct_change().round(2) * 100
     # Converte para DataFrame e arredonda os valores
     data = data.to_frame(name='Dividendos')
     data['Dividendos'] = data['Dividendos'].round(2)
@@ -140,7 +157,35 @@ def gerar_grafico_dividendos(ticker, meses):
         textposition="top center",
         textfont=dict(size=13.5)
     ))
+    # Cria o gráfico
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=data.index, y=data['Dividendos'], mode='lines+markers+text',
+        name='Dividendos', line=dict(color='blue'),
+        text=[
+            f"R$ {dividendo:.2f}".replace('.', ',') + 
+            (f"<br>{'▲' if variacao > 0 else '▼'} {variacao:.2f}%".replace('.', ',')
+            if not pd.isna(variacao) else "")
+            for dividendo, variacao in zip(data['Dividendos'], data['Variação %'])
+        ],
+        textposition="top center",
+        textfont=dict(size=13.5)
+    ))
 
+    # Configurações do layout do gráfico
+    fig.update_layout(
+        title=f"Histórico de Dividendos do {ticker} - Últimos {meses} Meses",
+        title_font=dict(size=20),
+        yaxis_title="Dividendos (R$)",
+        template="plotly_dark",
+        xaxis=dict(
+            tickformat="%Y-%m-%d",  # Formato de data sem horas
+            tickangle=-25
+        ),
+        yaxis=dict(
+            tickprefix="R$ "
+        )
+    )
     # Configurações do layout do gráfico
     fig.update_layout(
         title=f"Histórico de Dividendos do {ticker} - Últimos {meses} Meses",
