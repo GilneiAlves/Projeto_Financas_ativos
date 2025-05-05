@@ -1,13 +1,10 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-#import pytz
-#import locale
 
 from ativos_precos import ativos_config, precos_medios_config
-from grafico import gerar_grafico
-from grafico import gerar_grafico_dividendos
-#from tabela import calcular_dividendos_yields
+from grafico import gerar_grafico, gerar_grafico_dividendos
+from tabela import calcular_dividendos_yields
 
 # Configurações de página do Streamlit (wide mode)
 st.set_page_config(
@@ -39,9 +36,9 @@ meses = st.sidebar.slider("Dividendos dos últimos meses", 2, 12, 12)
 
 # Entrada dos valores pelo usuário
 st.sidebar.header("Parâmetros de Cálculo de Variação")
-saldo_bruto = st.sidebar.number_input("Saldo Bruto", min_value=0.0, value=20000.0, step=100.0,format="%.2f")
-valor_aplicado = st.sidebar.number_input("Valor Aplicado", min_value=0.0, value=30000.0, step=100.0,format="%.2f")
-total_proventos = st.sidebar.number_input("Total de Proventos", min_value=0.0, value=700.0, step=10.0,format="%.2f")
+saldo_bruto = st.sidebar.number_input("Saldo Bruto", min_value=1.0, value=1.0, step=100.0,format="%.2f")
+valor_aplicado = st.sidebar.number_input("Valor Aplicado", min_value=1.0, value=1.0, step=100.0,format="%.2f")
+total_proventos = st.sidebar.number_input("Total de Proventos", min_value=1.0, value=1.0, step=10.0,format="%.2f")
 
 # Cálculo da variação Real
 variacao = (saldo_bruto - (valor_aplicado - total_proventos)) / saldo_bruto * 100
@@ -66,11 +63,10 @@ if grafico:
 grafico_dividendos = gerar_grafico_dividendos(ativo_selecionado, meses, df_dividendos_baixados)
 if grafico_dividendos:
     st.plotly_chart(grafico_dividendos, use_container_width=True)
-'''
+
 # Calcula e exibe a tabela de dados dos ativos
 st.write("Tabela de Dados dos Ativos", unsafe_allow_html=True)
-df_ativos = calcular_dividendos_yields(ativos, precos_medios)
+df_ativos = calcular_dividendos_yields(ativos, precos_medios, df_dividendos_baixados, df_cotacoes)
 
 # Exibe a tabela com o ajuste de largura e altura do container
 st.dataframe(df_ativos, use_container_width=True, height=458, hide_index=True)
-'''
