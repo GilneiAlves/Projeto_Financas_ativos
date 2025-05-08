@@ -1,6 +1,6 @@
 # Lista de ativos
 ativos_config = ["HGRU11.SA", "HSLG11.SA", "KNCR11.SA", "MXRF11.SA", "PORD11.SA", "RZTR11.SA",
-          "VGHF11.SA", "GGRC11.SA", "XPLG11.SA", "XPML11.SA", "GARE11.SA", "VISC11.SA"]
+                 "VGHF11.SA", "GGRC11.SA", "XPLG11.SA", "XPML11.SA", "GARE11.SA", "VISC11.SA"]
 
 # Lista de preços medios dos ativos
 precos_medios_config = {

@@ -25,7 +25,7 @@ def gerar_grafico(ticker, num_dias, precos_medios, df_cotacoes):
         return None
 
     # Garante que as datas sejam tratadas corretamente para ordenação e filtragem.
-    df_ticker['date'] = pd.to_datetime(df_ticker['date'], format='%d-%m-%Y')
+    df_ticker['date'] = pd.to_datetime(df_ticker['date'], format='%d/%m/%Y')
 
     # Garante que os dados estejam na ordem cronológica correta para selecionar os últimos dias.
     df_ticker = df_ticker.sort_values(by='date')
@@ -139,7 +139,7 @@ def gerar_grafico_dividendos(ticker, meses, df_dividendos):
 
     # Conversão da coluna de data para o tipo datetime.
     # Isso garante que as datas sejam tratadas corretamente para filtragem e ordenação.
-    df_ticker_dividendos['date'] = pd.to_datetime(df_dividendos['date'], format='%d-%m-%Y')
+    df_ticker_dividendos['date'] = pd.to_datetime(df_dividendos['date'], format='%d/%m/%Y')
 
     # Verifica se há dados para o ticker especificado após a filtragem.
     if df_ticker_dividendos.empty:

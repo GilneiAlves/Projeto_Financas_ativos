@@ -1,10 +1,10 @@
 import streamlit as st
-import pandas as pd
-from datetime import datetime
 
+# Carregar funções 
 from ativos_precos import ativos_config, precos_medios_config
 from grafico import gerar_grafico, gerar_grafico_dividendos
 from tabela import calcular_dividendos_yields
+from carrega_dados import carregar_dados
 
 # Configurações de página do Streamlit (wide mode)
 st.set_page_config(
@@ -14,14 +14,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Carrega os dados
-df_cotacoes = pd.read_excel('dados_organizados.xlsx')
-df_dividendos_baixados = pd.read_excel('historico_dividendos.xlsx')
-
 # Lista de ativos e preços médios
 ativos = ativos_config
-
 precos_medios = precos_medios_config
+
+# Carrega dados
+df_cotacoes, df_dividendos = carregar_dados(ativos_config)
 
 # Configurações da interface
 st.title("Análise de Ativos")
@@ -60,13 +58,13 @@ grafico = gerar_grafico(ativo_selecionado, num_dias, precos_medios, df_cotacoes)
 if grafico:
     st.plotly_chart(grafico, use_container_width=True)
 
-grafico_dividendos = gerar_grafico_dividendos(ativo_selecionado, meses, df_dividendos_baixados)
+grafico_dividendos = gerar_grafico_dividendos(ativo_selecionado, meses, df_dividendos)
 if grafico_dividendos:
     st.plotly_chart(grafico_dividendos, use_container_width=True)
 
 # Calcula e exibe a tabela de dados dos ativos
 st.write("Tabela de Dados dos Ativos", unsafe_allow_html=True)
-df_ativos = calcular_dividendos_yields(ativos, precos_medios, df_dividendos_baixados, df_cotacoes)
+df_ativos = calcular_dividendos_yields(ativos, precos_medios, df_dividendos, df_cotacoes)
 
 # Exibe a tabela com o ajuste de largura e altura do container
 st.dataframe(df_ativos, use_container_width=True, height=458, hide_index=True)

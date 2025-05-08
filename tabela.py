@@ -1,14 +1,13 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-from datetime import timedelta
 
 def calcular_dividendos_yields(ativos, precos_medios, df_dividendos_excel, df_cotacoes_atual):
     """
     Calcula indicadores financeiros de dividendos e yields (DY e YOC) para uma lista de ativos.
 
     Parâmetros:
-    - ativos: lista de tickers (ex: ['ITSA4', 'TAEE11'])
+    - ativos: lista de tickers (ex: ['HGRU11', 'TAEE11'])
     - precos_medios: dicionário com preço médio de compra por ativo
     - df_dividendos_excel: DataFrame com histórico de dividendos pagos (colunas: 'ticker', 'date', 'dividendo')
     - df_cotacoes_atual: DataFrame com últimas cotações dos ativos (colunas: 'ticker', 'date', 'valor_cotação')
@@ -19,6 +18,7 @@ def calcular_dividendos_yields(ativos, precos_medios, df_dividendos_excel, df_co
 
     dados_ativos = []  # Lista que armazenará os dados processados
     agora = pd.Timestamp.now()  # Data e hora atual para referência dos últimos 12 meses
+    df_dividendos_excel['date'] = pd.to_datetime(df_dividendos_excel['date'], format='%d/%m/%Y')
 
     for ticker in ativos:
         try:
@@ -66,7 +66,7 @@ def calcular_dividendos_yields(ativos, precos_medios, df_dividendos_excel, df_co
             # --- Cotação atual ---
             df_ticker_cotacoes = df_cotacoes_atual[df_cotacoes_atual['ticker'] == ticker].copy()
             if not df_ticker_cotacoes.empty:
-                df_ticker_cotacoes['date'] = pd.to_datetime(df_ticker_cotacoes['date'])
+                df_ticker_cotacoes['date'] = pd.to_datetime(df_ticker_cotacoes['date'], format='%d/%m/%Y')
                 df_ticker_cotacoes_ordenado = df_ticker_cotacoes.sort_values(by='date', ascending=False)
                 cotacao_atual = df_ticker_cotacoes_ordenado.iloc[0]['valor_cotação']
             else:
