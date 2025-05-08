@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from dados_online import buscar_dados_cotacoes_yahoo,buscar_dividendos_yahoo
+from src.dados_online import buscar_dados_cotacoes_yahoo,buscar_dividendos_yahoo
 from datetime import datetime, timedelta
 
 CACHE_EXPIRATION_MINUTES = 30
