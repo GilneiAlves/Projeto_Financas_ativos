@@ -1,10 +1,10 @@
 import streamlit as st
 
 # Carregar funções 
-from ativos_precos import ativos_config, precos_medios_config
-from grafico import gerar_grafico, gerar_grafico_dividendos
-from tabela import calcular_dividendos_yields
-from carrega_dados import carregar_dados
+from src.ativos_precos import ativos_config, precos_medios_config
+from src.grafico import gerar_grafico, gerar_grafico_dividendos
+from src.tabela import calcular_dividendos_yields
+from src.carrega_dados import carregar_dados
 
 # Configurações de página do Streamlit (wide mode)
 st.set_page_config(

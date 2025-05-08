@@ -52,8 +52,8 @@ def carregar_dados(ativos_config, use_cache=True):
             print("Tentando carregar dados locais...")
             try:
                 # Carrega os dados local
-                df_cotacoes_local = pd.read_excel('dados_organizados.xlsx')
-                df_dividendos_local = pd.read_excel('historico_dividendos.xlsx')
+                df_cotacoes_local = pd.read_excel('data\dados_organizados.xlsx')
+                df_dividendos_local = pd.read_excel('data\historico_dividendos.xlsx')
                 print("Dados locais carregados com sucesso!")
                 dados = (df_cotacoes_local, df_dividendos_local)
                 expiry_time = datetime.now() + timedelta(minutes=CACHE_EXPIRATION_MINUTES)
