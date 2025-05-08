@@ -12,11 +12,14 @@ Este projeto realiza a análise de ativos financeiros utilizando a biblioteca `y
 
 ## Tecnologias Utilizadas
 
-- **Streamlit**: Framework para criação de aplicações web interativas em Python.
-- **yfinance**: Biblioteca para buscar dados financeiros históricos.
-- **plotly**: Biblioteca para criação de gráficos interativos.
-- **pandas**: Biblioteca para análise e manipulação de dados.
-- **numpy**: Biblioteca para operações numéricas.
+- **Streamlit**: Framework para criação da interface da aplicação.
+- **yfinance**: Biblioteca para obtenção de dados financeiros históricos de forma prática.
+- **plotly**: Biblioteca para criação dos gráficos de cotação de ativos e dividendos.
+- **pandas**: Biblioteca para análise, transformação e manipulação de dados.
+- **numpy**: Biblioteca para operações numéricas e cálculo.
+- **datetime**: Módulo para manipulação de data e hora.
+- **requests**: Biblioteca para realizar requisições HTTP para a API yfinance.
+- **time**: Módulo utilizado para verificações de expiração de cache após um período definido.
 
 ## Passos para Execução do Projeto
 
@@ -25,9 +28,10 @@ Este projeto realiza a análise de ativos financeiros utilizando a biblioteca `y
 Clone este repositório para sua máquina local:
 
 ```bash
-git clone https://github.com/gilneifreitas/ativosfinanceiros.git
-cd ativosfinanceiros
+git clone https://github.com/gilneifreitas/Projeto_Financas_ativos.git
+cd Projeto_Financas_ativos
 ```
+
 
 ### 2. Crie e Ative um Ambiente Virtual (opcional, mas recomendado)
 
@@ -54,7 +58,7 @@ pip install -r requirements.txt
 
 Com todas as dependências instaladas, você pode iniciar o aplicativo Streamlit com o seguinte comando:
 ```
-streamlit run app.py
+streamlit run interface.py
 ```
 Seleção de Ativo:
 
@@ -69,13 +73,45 @@ Comparação de Preço:
 
 O preço atual do ativo será comparado com o preço médio ao longo do tempo, e o gráfico mostrará essas informações de maneira clara.
 
+Tabela resumo com os calculos de indicadores financeiros de dividendos e yields (DY e YOC), para a lista de ativos.
+
+
+### Descrição dos Diretórios e Arquivos
+
+- `data/`: Contém os arquivos de dados brutos ou tratados, como planilhas com histórico de dividendos e cotações organizadas.
+- `src/`: Scripts auxiliares que realizam o carregamento, tratamento e geração de visualizações dos dados.
+  - `grafico.py`: Responsável pela geração de gráficos financeiros.
+  - `tabela.py`: Cria tabelas de resumo dos ativos.
+  - `ativos_precos.py`: Define as listas de ativos e seus preços médios.
+  - `carrega_dados.py`: Função central para carregar dados localmente ou online.
+  - `dados_online.py`: Faz a requisição dos dados no Yahoo Finance e estrutura o DataFrame.
+  - `salva_cotacao.py`: Salva os dados coletados de cotações e dividendos.
+- `interface.py`: Script principal da aplicação, com a interface desenvolvida em Streamlit.
+- `requirements.txt`: Lista das bibliotecas necessárias para execução do projeto.
+- `.gitignore`: Especifica arquivos e pastas que devem ser ignorados pelo Git (ex: dados sensíveis).
+- `README.md`: Este arquivo, que documenta a estrutura e finalidade do projeto.
+
+
 ### Estrutura do Projeto
 A estrutura de diretórios do projeto é a seguinte:
+
 ```
-├── interface.py            # Arquivo principal do Streamlit
-├── grafico.py              # Arquivo gera os gráficos
-├── tabela.py               # Arquivo gera tabela de resumo
-├── requirements.txt        # Arquivo com as dependências do projeto
-├── .gitignore              # Arquivo para ignorar dados e arquivos que não irão para o git remoto
-├── README.md               # Este arquivo
+Projeto_Financas_ativos/
+│
+├── data/ # Pasta para armazenar os dados
+│ ├── dados_organizados.xlsx
+│ ├── historico_dividendos.xlsx
+│
+├── src/ # Scripts principais de manipulação e visualização
+│ ├── grafico.py # Gera os gráficos
+│ ├── tabela.py # Gera tabela de resumo
+│ ├── ativos_precos.py # Lista de ativos e preços médios
+│ ├── carrega_dados.py # Carrega cotações e dividendos (online ou local)
+│ ├── dados_online.py # Busca ativos no Yahoo Finance (formato: date|ticker|valor)
+│ ├── salva_cotacao.py # Salva arquivos de cotação e dividendos
+│
+├── interface.py # Interface principal com Streamlit
+├── requirements.txt # Lista de dependências do projeto
+├── .gitignore # Arquivos e pastas ignoradas pelo Git
+├── README.md # Documentação do projeto
 ```
