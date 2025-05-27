@@ -28,7 +28,7 @@ Este projeto realiza a análise de ativos financeiros utilizando a biblioteca `y
 Clone este repositório para sua máquina local:
 
 ```bash
-git clone https://github.com/gilneifreitas/Projeto_Financas_ativos.git
+git clone https://github.com/GilneiAlves/Projeto_Financas_ativos.git
 cd Projeto_Financas_ativos
 ```
 
