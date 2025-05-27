@@ -142,4 +142,4 @@ Este projeto está em constante evolução. Algumas ideias para futuras implemen
 * **Suporte a Outros Ativos:** Expandir a análise para incluir Ações brasileiras, Ações Internacionais ou Criptomoedas.
 * **Testes Automatizados:** Implementar testes unitários e de integração para garantir a robustez do código.
 
-Entre em contato <https://www.linkedin.com/in/gilnei-freitas/> para recomendar uma nova funcionalidade ou relatar um erro ou inconsistências.
+Entre em contato através de <https://www.linkedin.com/in/gilnei-freitas/> para sugerir um novo recurso ou informar sobre um erro ou discrepâncias.
