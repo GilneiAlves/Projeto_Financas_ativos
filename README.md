@@ -3,12 +3,27 @@
 
 Este projeto realiza a análise de ativos financeiros utilizando a biblioteca `yfinance` para buscar dados históricos de ações e o `Streamlit` para criar uma interface interativa que permite visualizar gráficos e informações de ativos financeiros. O projeto inclui funcionalidades como a exibição de cotações, cálculo de dividendos e yields, e gráficos comparativos.
 
+## Motivação e Contexto
+
+No dinâmico mercado financeiro, acompanhar o desempenho de ativos, especialmente com foco em dividendos e custo de aquisição, pode exigir o uso de múltiplas plataformas ou planilhas complexas. Este projeto nasceu com o objetivo de **centralizar e simplificar essas análises** em uma interface web interativa e intuitiva.
+
+Além de resolver uma necessidade prática de visualização de portfólio, o desenvolvimento desta aplicação serviu como uma excelente oportunidade para aplicar e aprofundar conhecimentos em **Python para finanças**, explorando o poder do `yfinance` para coleta de dados em tempo real (ou quase) e do `Streamlit` para a construção de *data apps* de forma ágil e eficiente.
+
 ## Funcionalidades
 
 - **Seleção de Ativo**: Permite ao usuário escolher ativos financeiros a partir de uma lista.
 - **Exibição de Gráficos**: Mostra a cotação histórica do ativo selecionado utilizando gráficos interativos criados com `plotly`.
 - **Cálculos de Dividendos**: Exibe os dividendos pagos nos últimos 12 meses e calcula os rendimentos do ativo, como `Dividend Yield` e `Yield on Cost`.
 - **Comparação com Preço Médio**: Visualiza a comparação entre o preço atual e o preço médio do ativo ao longo do tempo.
+
+## Exemplos de Uso e Análise
+
+Com esta ferramenta, é possível obter insights rápidos como:
+
+* **Visualizar Tendências:** Acompanhe a evolução da cotação de um ativo (ex: `MXRF11.SA`) ao longo do tempo e identifique visualmente períodos de alta, baixa ou consolidação.
+* **Analisar Renda Passiva:** Verifique o total de dividendos pagos por uma ação (ex: `HGRU11.SA`) nos últimos 12 meses e calcule seu `Dividend Yield` (DY) para entender o retorno atual em relação ao preço.
+* **Avaliar Custo vs. Valor:** Compare seu preço médio de aquisição com a cotação atual de um ativo (ex: `KNCR11.SA`) através do gráfico e do `Yield on Cost` (YOC), avaliando a performance real do seu investimento inicial.
+* **Visão Rápida da Carteira:** Utilize a tabela resumo para comparar rapidamente os indicadores de DY e YOC de todos os seus ativos listados, facilitando a identificação de quais estão gerando mais retorno sobre o custo.
 
 ## Tecnologias Utilizadas
 
@@ -115,3 +130,16 @@ Projeto_Financas_ativos/
 ├── .gitignore # Arquivos e pastas ignoradas pelo Git
 ├── README.md # Documentação do projeto
 ```
+
+
+## Próximos Passos
+
+Este projeto está em constante evolução. Algumas ideias para futuras implementações incluem:
+
+* **Adicionar Mais Indicadores:** Incluir métricas fundamentalistas importantes como P/L (Preço/Lucro), P/VP (Preço/Valor Patrimonial), ROE (Retorno sobre Patrimônio Líquido), etc.
+* **Gerenciamento de Portfólio:** Permitir que o usuário insira suas transações de compra/venda para um cálculo automático e mais preciso do preço médio e da performance da carteira.
+* **Notícias e Alertas:** Integrar notícias relevantes para os ativos selecionados ou criar um sistema de alertas de preço ou distribuição de dividendos.
+* **Suporte a Outros Ativos:** Expandir a análise para incluir Ações brasileiras, Ações Internacionais ou Criptomoedas.
+* **Testes Automatizados:** Implementar testes unitários e de integração para garantir a robustez do código.
+
+Entre em contato <https://www.linkedin.com/in/gilnei-freitas/> para recomendar uma nova funcionalidade ou relatar um erro ou inconsistências.
