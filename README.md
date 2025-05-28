@@ -103,7 +103,7 @@ Tabela resumo com os calculos de indicadores financeiros de dividendos e yields 
   - `salva_cotacao.py`: Salva os dados coletados de cotações e dividendos.
 - `interface.py`: Script principal da aplicação, com a interface desenvolvida em Streamlit.
 - `requirements.txt`: Lista das bibliotecas necessárias para execução do projeto.
-- `.gitignore`: Especifica arquivos e pastas que devem ser ignorados pelo Git (ex: dados sensíveis).
+- `.gitignore`: Arquivos e pastas que devem ser ignorados pelo Git.
 - `README.md`: Este arquivo, que documenta a estrutura e finalidade do projeto.
 
 
